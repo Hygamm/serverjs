@@ -12,11 +12,11 @@ app.use(express.json());
 
 // Database configuration
 const dbConfig = {
-  host: 'metro.proxy.rlwy.net',
+  host: process.env.DBHOST,
   user: process.env.MYSQLUSER,
   password: process.env.MYSQLPASSWORD,
   database: process.env.MYSQL_DATABASE,
-  port: '13604'
+  port: process.env.DBPORT
 };
 
 // Create database connection pool
@@ -30,7 +30,7 @@ app.get('/', (req, res) => {
 // Get elements from cigarettes table
 app.get('/viktor_db/cigarettes', async (req, res) => {
   try {
-    const [rows] = await pool.query("SELECT brand,name, price_pack AS 'price/pack' FROM cigarettes");
+    const [rows] = await pool.query("SELECT brand,name, price_pack FROM cigarettes");
     
     // Currency formatter
     const formatter = new Intl.NumberFormat('it-IT', {
@@ -39,11 +39,10 @@ app.get('/viktor_db/cigarettes', async (req, res) => {
     });
 
     const formattedRows = rows.map(row => {
-      const priceValue = Number(row.price_pack) || 0;
       return {
         brand: row.brand,
         name: row.name,
-        'price/pack': formatter.format(priceValue) 
+        'price/pack': formatter.format(Number(row.price_pack) || 0)
       };
     });
     
@@ -60,6 +59,7 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 
 });
+
 
 
 
