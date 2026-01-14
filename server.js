@@ -16,7 +16,7 @@ const dbConfig = {
   user: process.env.MYSQLUSER,
   password: process.env.MYSQLPASSWORD,
   database: process.env.MYSQL_DATABASE,
-  port: process.env.MYSQLPORT
+  port: '13604'
 };
 
 // Create database connection pool
@@ -43,6 +43,7 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 
 });
+
 
 
 
