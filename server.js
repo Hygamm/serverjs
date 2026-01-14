@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
 });
 
 // Get elements from cigarettes brands table
-app.get('/viktor_db/cigarette_brands', (req, res) => {
+app.get('/viktor_db/cigarette_brands', async (req, res) => {
   try {
     const [rows] = await pool.query("SELECT id from brands");
     res.json(rows);
@@ -70,6 +70,7 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 
 });
+
 
 
 
