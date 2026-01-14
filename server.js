@@ -12,11 +12,11 @@ app.use(express.json());
 
 // Database configuration
 const dbConfig = {
-  host: 'viktor-production-8419.up.railway.app',
+  host: 'metro.proxy.rlwy.net,
   user: process.env.MYSQLUSER,
   password: process.env.MYSQLPASSWORD,
   database: process.env.MYSQL_DATABASE,
-  port: process.env.MYSQL_DATABASE
+  port: process.env.MYSQLPORT
 };
 
 // Create database connection pool
@@ -43,6 +43,7 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 
 });
+
 
 
 
