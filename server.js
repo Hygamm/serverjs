@@ -38,12 +38,14 @@ app.get('/viktor_db/cigarettes', async (req, res) => {
       currency: 'EUR',
     });
 
-    const formattedRows = rows.map(row => ({
-      brand: row.brand,
-      name: row.name,
-      price_numeric: row.price_pack, 
-      'price/pack': formatter.format(row.price_pack) 
-    }));
+    const formattedRows = rows.map(row => {
+      const priceValue = Number(row.price_pack) || 0;
+      return {
+        brand: row.brand,
+        name: row.name,
+        'price/pack': formatter.format(priceValue) 
+      };
+    });
     
     res.json(formattedRows);
     
@@ -58,6 +60,7 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 
 });
+
 
 
 
