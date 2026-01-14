@@ -35,6 +35,7 @@ app.get('/viktor_db/cigarettes', async (req, res) => {
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server running on ${host}:${PORT}`);
 
 });
+
