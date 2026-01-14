@@ -22,9 +22,20 @@ const dbConfig = {
 // Create database connection pool
 const pool = mysql.createPool(dbConfig);
 
-//root URL '/'
+// root URL '/'
 app.get('/', (req, res) => {
   res.send('Hello, world! What are you doing here?');
+});
+
+// Get elements from cigarettes brands table
+app.get('/viktor_db/cigarette_brands', (req, res) => {
+  try {
+    const [rows] = await pool.query("SELECT id from brands");
+    res.json(rows);
+  } catch (error) {
+    console.error('Database error:', error);
+    res.status(500).json({ error: 'Failed to fetch data' });
+  }
 });
 
 // Get elements from cigarettes table
@@ -59,6 +70,7 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 
 });
+
 
 
 
