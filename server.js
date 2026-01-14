@@ -12,7 +12,7 @@ app.use(express.json());
 
 // Database configuration
 const dbConfig = {
-  host: process.env.MYSQLHOST,
+  host: metro.proxy.rlwy.net,
   user: process.env.MYSQLUSER,
   password: process.env.MYSQLPASSWORD,
   database: process.env.MYSQL_DATABASE,
@@ -30,7 +30,7 @@ app.get('/', (req, res) => {
 // Get elements from cigarettes table
 app.get('/viktor_db/cigarettes', async (req, res) => {
   try {
-    const [rows] = await pool.query("SELECT * FROM cigarettes");
+    const [rows] = await pool.query("SELECT brand,name, price_pack AS 'price/pack' FROM cigarettes");
     res.json(rows);
   } catch (error) {
     console.error('Database error:', error);
@@ -43,6 +43,7 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 
 });
+
 
 
 
