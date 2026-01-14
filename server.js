@@ -31,7 +31,22 @@ app.get('/', (req, res) => {
 app.get('/viktor_db/cigarettes', async (req, res) => {
   try {
     const [rows] = await pool.query("SELECT brand,name, price_pack AS 'price/pack' FROM cigarettes");
-    res.json(rows);
+    
+    // Currency formatter
+    const formatter = new Intl.NumberFormat('it-IT', { // Use 'en-US' for $, 'it-IT' for €
+      style: 'currency',
+      currency: 'EUR', 
+    });
+    
+    // Map through rows to format the price
+    const formattedRows = rows.map(row => ({
+      brand: row.brand,
+      name: row.name,
+      'price/pack': formatter.format(row.price_pack)
+    }));
+    
+    res.json(formattedRows);
+    
   } catch (error) {
     console.error('Database error:', error);
     res.status(500).json({ error: 'Failed to fetch data' });
@@ -43,6 +58,7 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 
 });
+
 
 
 
