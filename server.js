@@ -12,11 +12,11 @@ app.use(express.json());
 
 // Database configuration
 const dbConfig = {
-  host: 'metro.proxy.rlwy.net',
-  user: 'root',
-  password: 'oRESSKLFSkusvXyTMGZJpbWjqODMrcSU',
-  database: 'railway',
-  port: 3306
+  host: process.env.MYSQLHOST,
+  user: process.env.MYSQLUSER,
+  password: process.env.MYSQLPASSWORD,
+  database: process.env.MYSQL_DATABASE,
+  port: process.env.MYSQL_DATABASE
 };
 
 // Create database connection pool
@@ -36,4 +36,5 @@ app.get('/viktor_db/cigarettes', async (req, res) => {
 // Start server
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
+
 });
