@@ -12,7 +12,7 @@ app.use(express.json());
 
 // Database configuration
 const dbConfig = {
-  host: 'metro.proxy.rlwy.net,
+  host: 'metro.proxy.rlwy.net',
   user: process.env.MYSQLUSER,
   password: process.env.MYSQLPASSWORD,
   database: process.env.MYSQL_DATABASE,
@@ -43,6 +43,7 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 
 });
+
 
 
 
